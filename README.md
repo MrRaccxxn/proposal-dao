@@ -1,40 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🗳️ Governance Proposal dApp
 
-## Getting Started
+A simple decentralized application that allows users to submit and view governance proposals. Built with **Next.js**, **TypeScript**, and **Wagmi**, and connected to an Ethereum smart contract deployed on the **Sepolia** testnet.
 
-First, run the development server:
+---
+
+## 🧩 Features
+
+- ✅ Connect wallet using Wagmi
+- 📝 Submit new proposals (title + description)
+- 📃 View a list of all submitted proposals
+- 🔗 Interact with a real smart contract on Sepolia
+
+---
+
+## ⚙️ Smart Contract
+
+- **Network**: Sepolia Testnet
+- **Contract Address**: [`0x755573Ab9248C6B19F56E6B9e2285851e8d02dc3`](https://sepolia.etherscan.io/address/0x755573Ab9248C6B19F56E6B9e2285851e8d02dc3)
+- **Explorer**: View contract code and transactions on Etherscan
+- The contract allows anyone to:
+  - Create a proposal (with title and description)
+  - Retrieve all proposals (publicly accessible)
+
+---
+
+## 🛠️ How to Run Locally
+
+1. **Clone the repository**
+   ```bash
+   git clone <repo_url>
+   cd <project_folder>
+   npm install
+   npm run dev
+   ```
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+2. Visit http://localhost:3000
+
+📝 No environment variables are required — the app uses a public RPC from Sepolia to connect to the smart contract.
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
