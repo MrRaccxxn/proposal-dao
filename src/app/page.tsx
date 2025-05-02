@@ -10,7 +10,8 @@ export default function Home() {
             Governance Proposals
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Submit and view governance proposals for the community. Connect your wallet to participate.
+            Submit and view governance proposals for the community. Connect your
+            wallet to participate.
           </p>
         </div>
 
