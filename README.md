@@ -33,10 +33,6 @@ A simple decentralized application that allows users to submit and view governan
    npm install
    npm run dev
    ```
-
-```bash
-
-2. Visit http://localhost:3000
+2. **Visit http://localhost:3000**
 
 📝 No environment variables are required — the app uses a public RPC from Sepolia to connect to the smart contract.
-```
