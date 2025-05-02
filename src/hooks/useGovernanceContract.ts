@@ -6,7 +6,7 @@ import {
   useWriteContract,
   useWatchContractEvent,
 } from "wagmi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CONTRACT_CONFIG } from "../../blockchain/config";
 
 interface RawProposal {
@@ -20,8 +20,12 @@ export function useGovernanceContract() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Read contract data
-  const { data: contractData, refetch: refetchProposals } = useReadContracts({
+  // Read contract data with specific configuration to prevent issues
+  const { 
+    data: contractData, 
+    refetch: refetchProposals,
+    error: readError 
+  } = useReadContracts({
     contracts: [
       {
         ...CONTRACT_CONFIG,
@@ -32,7 +36,24 @@ export function useGovernanceContract() {
         functionName: "getAllProposals",
       },
     ],
+    query: {
+      // Ensure proper refetching and caching behavior
+      refetchInterval: 10000, // Refetch every 10 seconds
+      refetchOnWindowFocus: true,
+      refetchOnMount: true,
+      retry: 3
+    }
   });
+
+  // Handle contract read errors
+  useEffect(() => {
+    if (readError) {
+      console.error("Contract read error:", readError);
+      setError(`Error loading proposals: ${readError.message}`);
+    } else {
+      setError(null);
+    }
+  }, [readError]);
 
   const proposalCount = contractData?.[0]?.result
     ? Number(contractData[0].result)
@@ -47,6 +68,7 @@ export function useGovernanceContract() {
     ...CONTRACT_CONFIG,
     eventName: "ProposalCreated",
     onLogs() {
+      console.log("New proposal created, refreshing...");
       refetchProposals();
       setIsLoading(false);
       setError(null);
@@ -58,13 +80,20 @@ export function useGovernanceContract() {
     try {
       setIsLoading(true);
       setError(null);
+      
+      console.log("Submitting proposal:", title, description);
+      console.log("Contract address:", CONTRACT_CONFIG.address);
+      
       await writeContract({
         ...CONTRACT_CONFIG,
         functionName: "createProposal",
         args: [title, description],
       });
+      
+      // Note: Loading state will be cleared by the event listener
     } catch (err) {
       const error = err as Error;
+      console.error("Error creating proposal:", error);
       setError(error.message || "Failed to create proposal");
       setIsLoading(false);
     }
